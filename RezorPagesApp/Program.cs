@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using RezorPagesApp.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<RezorPagesAppContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RezorPagesAppContext") ?? throw new InvalidOperationException("Connection string 'RezorPagesAppContext' not found.")));
 
 var app = builder.Build();
 
